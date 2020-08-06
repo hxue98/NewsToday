@@ -27,7 +27,11 @@ public class AccountController {
     public ResponseEntity<AjaxResponseBody> login(HttpServletRequest request, User user) {
         AjaxResponseBody body = new AjaxResponseBody();
 
-        if (accountService.login(user) == null) {
+        //user non exist
+        if(!accountService.existByUsername(user.getUsername())) {
+            body.setSuccess(false);
+            body.setMsg("User Non Exist");
+        } else if (accountService.login(user) == null) {
             body.setSuccess(false);
             body.setMsg("Login failed");
         } else {
