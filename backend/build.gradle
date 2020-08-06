@@ -4,11 +4,11 @@
 
 plugins {
     id 'java'
-    id 'maven-publish'
+    id 'org.springframework.boot' version '2.3.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
 }
 
@@ -30,14 +30,6 @@ group = 'team.YongAndJoe'
 version = '0.0.1-SNAPSHOT'
 description = 'NewsTodayBackend'
 sourceCompatibility = '1.8'
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from(components.java)
-        }
-    }
-}
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
