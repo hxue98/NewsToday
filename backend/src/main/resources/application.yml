@@ -7,7 +7,15 @@ spring:
     password: "!Abc123456"
     url: jdbc:mysql://localhost:3306/newstoday?serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: localhost
+    port: 6379
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: team.YongAndJoe.NewsTodayBackend.entity
+
+
+jwt:
+  secret: jwtsecret
+  validity: 86400 #24hr

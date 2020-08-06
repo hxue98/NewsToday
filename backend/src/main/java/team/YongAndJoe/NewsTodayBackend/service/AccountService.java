@@ -14,6 +14,10 @@ public class AccountService {
         return userDao.getById(id);
     }
 
+    public boolean existByUsername(String username) {
+        return userDao.existByUsername(username);
+    }
+
     public User login(User user) {
         return userDao.login(user);
     }
