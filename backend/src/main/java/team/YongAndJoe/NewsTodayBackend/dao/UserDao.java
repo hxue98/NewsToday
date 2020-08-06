@@ -17,6 +17,13 @@ public interface UserDao {
     public User getById(int id);
 
     /**
+     * Check if a user exist by username
+     * @param username username to check
+     * @return true if username exists, false otherwise
+     */
+    public boolean existByUsername(String username);
+
+    /**
      * Login using username and password
      * @param user username and password
      * @return user if username and password are correct, null otherwise

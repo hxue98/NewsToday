@@ -9,14 +9,26 @@
     </resultMap>
 
     <select id="getById" resultType="team.YongAndJoe.NewsTodayBackend.entity.User">
-        select * from account where id = #{id}
+        SELECT *
+        FROM account
+        WHERE id = #{id}
     </select>
 
-    <select id="login" resultType="team.YongAndJoe.NewsTodayBackend.entity.User">
-        SELECT * FROM account where username = #{param1} and password = #{param2}
+    <select id="login" resultType="team.YongAndJoe.NewsTodayBackend.entity.User" parameterType="team.YongAndJoe.NewsTodayBackend.entity.User">
+        SELECT *
+        FROM account
+        WHERE username = #{username} AND password = #{password}
+    </select>
+
+    <select id="existByUsername" resultType="java.lang.Boolean" parameterType="team.YongAndJoe.NewsTodayBackend.entity.User">
+        SELECT COUNT(*)
+        FROM account
+        WHERE username = #{username}
+        LIMIT 1
     </select>
 
     <insert id="register" parameterType="team.YongAndJoe.NewsTodayBackend.entity.User">
-        INSERT INTO account (username, password) VALUES (#{username}, #{password})
+        INSERT INTO account (username, password)
+        VALUES (#{username}, #{password})
     </insert>
 </mapper>
