@@ -1,13 +1,14 @@
 package team.YongAndJoe.NewsTodayBackend.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import team.YongAndJoe.NewsTodayBackend.entity.User;
 
 @Mapper
 @Repository
-public interface UserDao {
+public interface UserDao extends CrudRepository<User, Long> {
 
     /**
      * Get a user by id
