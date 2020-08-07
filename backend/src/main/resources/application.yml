@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     username: root
-    password: "!Abc123456"
+    password: "Aapple,1"
     url: jdbc:mysql://localhost:3306/newstoday?serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
