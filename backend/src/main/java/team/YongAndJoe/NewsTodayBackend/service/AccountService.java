@@ -2,11 +2,13 @@ package team.YongAndJoe.NewsTodayBackend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import team.YongAndJoe.NewsTodayBackend.dao.UserDao;
 import team.YongAndJoe.NewsTodayBackend.entity.User;
 
 @Service
 public class AccountService {
+
     @Autowired
     UserDao userDao;
 
@@ -25,4 +27,5 @@ public class AccountService {
     public boolean register(User user) {
         return userDao.register(user);
     }
+
 }

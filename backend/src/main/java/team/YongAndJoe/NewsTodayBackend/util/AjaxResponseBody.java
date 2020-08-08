@@ -1,5 +1,7 @@
 package team.YongAndJoe.NewsTodayBackend.util;
 
+import team.YongAndJoe.NewsTodayBackend.entity.User;
+
 import java.io.Serializable;
 
 public class AjaxResponseBody implements Serializable {
@@ -21,6 +23,7 @@ public class AjaxResponseBody implements Serializable {
         this(success, msg, result);
         this.jwtToken = jwtToken;
     }
+
 
     public boolean isSuccess() {
         return success;
