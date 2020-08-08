@@ -32,8 +32,6 @@ public class LoginValidator implements Validator {
             errors.rejectValue("password", "Length", errorMessageConfig.getRequirePassword());
         } else if(user.getPassword().length() < 6) {
             errors.rejectValue("password", "Length", errorMessageConfig.getPasswordTooShort());
-        } else if(!accountService.existByUsername(user.getUsername())){
-            errors.rejectValue("username", "exist", errorMessageConfig.getUserNotExist());
         }
     }
 }
