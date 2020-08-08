@@ -15,7 +15,20 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: team.YongAndJoe.NewsTodayBackend.entity
 
-
 jwt:
   secret: jwtsecret
   validity: 86400 #24hr
+
+config:
+  filter:
+    jwt-filter:
+      ignore-paths: ["/acc/login", "/acc/register"]
+  error-msgs:
+    require-authentication: "Require Authentication"
+    user-exist: "User already exist"
+    user-not-exist: "User does not exist"
+    login-failed: "Login failed"
+    bad-request: "Bad request"
+    require-username: "Username is required"
+    require-password: "Password is required"
+    password-too-short: "Password length needs be greater than 6"

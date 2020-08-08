@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import team.YongAndJoe.NewsTodayBackend.config.ErrorMessageConfig;
 import team.YongAndJoe.NewsTodayBackend.entity.User;
 import team.YongAndJoe.NewsTodayBackend.service.AccountService;
 import team.YongAndJoe.NewsTodayBackend.service.MapValidationErrorService;
@@ -24,6 +26,9 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private ErrorMessageConfig errorMessageConfig;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -42,11 +47,19 @@ public class AccountController {
 
         loginValidator.validate(user, result);
         ResponseEntity<?> errorMap = mapValidationErrorService.mapValidationService(result);
-        if(errorMap != null) return errorMap;
+        if (errorMap != null) {
+            return errorMap;
+        }
 
-        AjaxResponseBody body = new AjaxResponseBody();
-        body.setSuccess(true);
-        body.setJwtToken(jwtTokenUtil.generateJwt(user));
+        AjaxResponseBody body;
+
+        if (!accountService.existByUsername(user.getUsername())) {
+            body = AjaxResponseBody.FAIL(errorMessageConfig.getUserNotExist(), null);
+        } else if (accountService.login(user) == null) {
+            body = AjaxResponseBody.FAIL(errorMessageConfig.getLoginFailed(), null);
+        } else {
+            body = AjaxResponseBody.SUCCESS(null, null, jwtTokenUtil.generateJwt(user));
+        }
 
         return ResponseEntity.ok(body);
     }
@@ -60,10 +73,14 @@ public class AccountController {
         if(errorMap != null) return errorMap;
 
         //create user
-        AjaxResponseBody body = new AjaxResponseBody();
-        if(accountService.register(user)){
-            body.setSuccess(true);
-            body.setJwtToken(jwtTokenUtil.generateJwt(user));
+        AjaxResponseBody body;
+
+        if (accountService.existByUsername(user.getUsername())) {
+            body = AjaxResponseBody.FAIL(errorMessageConfig.getUserExist(), null);
+        } else if (accountService.register(user)){
+            body = AjaxResponseBody.SUCCESS(null, null, jwtTokenUtil.generateJwt(user));
+        } else {
+            body = AjaxResponseBody.FAIL(errorMessageConfig.getBadRequest(), null);
         }
 
         return new ResponseEntity<AjaxResponseBody>(body, HttpStatus.CREATED);
@@ -71,14 +88,13 @@ public class AccountController {
 
     @GetMapping("/logout")
     public ResponseEntity<AjaxResponseBody> logout(HttpServletRequest request) {
-        AjaxResponseBody body = new AjaxResponseBody();
+        AjaxResponseBody body;
 
         String token = jwtTokenUtil.getTokenFromRequest(request);
         if (jwtTokenUtil.invalidateJwt(token)) {
-            body.setSuccess(true);
+            body = AjaxResponseBody.SUCCESS("", null);
         } else {
-            body.setSuccess(false);
-            body.setMsg("Bad request");
+            body = AjaxResponseBody.FAIL(errorMessageConfig.getBadRequest(), null);
         }
 
         return ResponseEntity.ok(body);
