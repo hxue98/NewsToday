@@ -10,20 +10,28 @@ public class AjaxResponseBody implements Serializable {
     private Object result;
     private String jwtToken;
 
-    public AjaxResponseBody() {
-    }
-
-    public AjaxResponseBody(boolean success, String msg, Object result) {
+    private AjaxResponseBody(boolean success, String msg, Object result) {
         this.success = success;
         this.msg = msg;
         this.result = result;
     }
 
-    public AjaxResponseBody(boolean success, String msg, Object result, String jwtToken) {
+    private AjaxResponseBody(boolean success, String msg, Object result, String jwtToken) {
         this(success, msg, result);
         this.jwtToken = jwtToken;
     }
 
+    public static AjaxResponseBody SUCCESS(String msg, Object result) {
+        return new AjaxResponseBody(true, msg, result);
+    }
+
+    public static AjaxResponseBody SUCCESS(String msg, Object result, String jwtToken) {
+        return new AjaxResponseBody(true, msg, result, jwtToken);
+    }
+
+    public static AjaxResponseBody FAIL(String msg, Object result) {
+        return new AjaxResponseBody(false, msg, result);
+    }
 
     public boolean isSuccess() {
         return success;

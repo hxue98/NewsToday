@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import team.YongAndJoe.NewsTodayBackend.config.ErrorMessageConfig;
 import team.YongAndJoe.NewsTodayBackend.entity.User;
 import team.YongAndJoe.NewsTodayBackend.service.AccountService;
 
@@ -12,6 +13,10 @@ public class RegisterValidator implements Validator {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private ErrorMessageConfig errorMessageConfig;
+
     @Override
     public boolean supports(Class<?> clazz) {
         return User.class.equals(clazz);
@@ -22,12 +27,13 @@ public class RegisterValidator implements Validator {
         User user = (User) object;
 
         if(user.getUsername().length() == 0) {
-            errors.rejectValue("username", "Length", "Username is required");
+            errors.rejectValue("username", "Length", errorMessageConfig.getRequireUsername());
+        } else if(user.getPassword().length() == 0) {
+            errors.rejectValue("password", "Length", errorMessageConfig.getRequirePassword());
         } else if(user.getPassword().length() < 6) {
-            errors.rejectValue("password", "Length", "Password must at least 6 characters");
+            errors.rejectValue("password", "Length", errorMessageConfig.getPasswordTooShort());
         } else if(accountService.existByUsername(user.getUsername())){
-            errors.rejectValue("username", "Exist", "Username already exists");
+            errors.rejectValue("username", "Exist", errorMessageConfig.getUserExist());
         }
-
     }
 }

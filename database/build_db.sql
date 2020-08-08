@@ -10,7 +10,7 @@ CREATE TABLE `account`(
 
 -- dummy data for account
 INSERT INTO `account` (`id`, `username`, `password`)
-VALUES (1, 'admin', '123');
+VALUES (1, 'admin', '123456');
 
 -- create news table
 CREATE TABLE `news`(
