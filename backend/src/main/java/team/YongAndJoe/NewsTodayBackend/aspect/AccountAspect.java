@@ -1,6 +1,6 @@
 package team.YongAndJoe.NewsTodayBackend.aspect;
 
-import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -27,7 +27,7 @@ public class AccountAspect {
     @Before("@annotation(team.YongAndJoe.NewsTodayBackend.annotation.HashPassword)")
     public void hashPassword(JoinPoint joinPoint) throws Throwable {
         User user = (User)joinPoint.getArgs()[0];
-        user.setPassword(Hex.encodeHexString(user.getPassword().getBytes()));
+        user.setPassword(HashPassword(user));
     }
 
     @Around("@annotation(team.YongAndJoe.NewsTodayBackend.annotation.ValidateUser)")
@@ -42,5 +42,11 @@ public class AccountAspect {
         else {
             return errorMap;
         }
+    }
+
+    private String HashPassword(User user) {
+        String email = user.getEmail();
+        String password = user.getPassword();
+        return DigestUtils.md5Hex((password + email));
     }
 }

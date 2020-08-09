@@ -43,7 +43,6 @@ public class AuthValidator implements Validator {
 
     private boolean check(String emailStr) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
-        System.out.println(matcher.matches());
         return matcher.matches();
     }
 }
