@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import { register } from '../../actions/AuthActions';
+import { connect } from 'react-redux'
 
 const Register = (props) => {
   const [user, setUser] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
     password2: '',
   });
 
-  const { name, email, password, password2 } = user;
+  const { username, email, password, password2 } = user;
 
   const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -16,12 +18,12 @@ const Register = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (name === '' || email === '' || password === '') {
-      // TODO: alert msg
+    if (username === '' || email === '' || password === '') {
+      alert("Missing required fields!");
     } else if (password !== password2) {
-      // TODO: alert msg
+      alert("Passwords do not match!");
     } else {
-      // TODO: register user
+      register(user)(props.dispatch);
     }
   };
 
@@ -32,12 +34,12 @@ const Register = (props) => {
       </h3>
       <form onSubmit={onSubmit}>
         <div className='form-group'>
-          <label htmlFor='name'>Name</label>
+          <label htmlFor='username'>Username</label>
           <input
-            id='name'
+            id='username'
             type='text'
-            name='name'
-            value={name}
+            name='username'
+            value={username}
             onChange={onChange}
             required
           />
@@ -87,4 +89,4 @@ const Register = (props) => {
   );
 };
 
-export default Register;
+export default connect()(Register);
