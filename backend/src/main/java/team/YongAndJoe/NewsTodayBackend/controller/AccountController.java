@@ -37,7 +37,7 @@ public class AccountController {
     public ResponseEntity<?> login(@RequestBody User user, BindingResult result) {
         AjaxResponseBody body;
 
-        if (!accountService.existByUsername(user.getUsername())) {
+        if (!accountService.existByEmail(user.getEmail())) {
             body = AjaxResponseBody.FAIL(errorMessageConfig.getUserNotExist(), null);
         } else if (accountService.login(user) == null) {
             body = AjaxResponseBody.FAIL(errorMessageConfig.getLoginFailed(), null);
@@ -54,7 +54,7 @@ public class AccountController {
     public ResponseEntity<?> register(@RequestBody User user, BindingResult result) {
         AjaxResponseBody body;
 
-        if (accountService.existByUsername(user.getUsername())) {
+        if (accountService.existByEmail(user.getEmail())) {
             body = AjaxResponseBody.FAIL(errorMessageConfig.getUserExist(), null);
         } else if (accountService.register(user)){
             body = AjaxResponseBody.SUCCESS(null, null, jwtTokenUtil.generateJwt(user));

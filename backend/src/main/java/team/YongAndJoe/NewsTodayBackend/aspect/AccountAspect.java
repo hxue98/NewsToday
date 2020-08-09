@@ -12,8 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import team.YongAndJoe.NewsTodayBackend.entity.User;
 import team.YongAndJoe.NewsTodayBackend.service.MapValidationErrorService;
-import team.YongAndJoe.NewsTodayBackend.validator.LoginValidator;
-import team.YongAndJoe.NewsTodayBackend.validator.RegisterValidator;
+import team.YongAndJoe.NewsTodayBackend.validator.AuthValidator;
 
 @Aspect
 @Configuration
@@ -23,10 +22,7 @@ public class AccountAspect {
     private MapValidationErrorService mapValidationErrorService;
 
     @Autowired
-    private RegisterValidator registerValidator;
-
-    @Autowired
-    private LoginValidator loginValidator;
+    private AuthValidator authValidator;
 
     @Before("@annotation(team.YongAndJoe.NewsTodayBackend.annotation.HashPassword)")
     public void hashPassword(JoinPoint joinPoint) throws Throwable {
@@ -38,7 +34,7 @@ public class AccountAspect {
     public Object validateUser(ProceedingJoinPoint joinPoint) throws Throwable {
         User user = (User)joinPoint.getArgs()[0];
         BindingResult result = (BindingResult)joinPoint.getArgs()[1];
-        loginValidator.validate(user, result);
+        authValidator.validate(user, result);
         ResponseEntity<?> errorMap = mapValidationErrorService.mapValidationService(result);
         if (errorMap == null) {
             return joinPoint.proceed();

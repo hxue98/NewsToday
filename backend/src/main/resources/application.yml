@@ -31,4 +31,6 @@ config:
     bad-request: "Bad request"
     require-username: "Username is required"
     require-password: "Password is required"
+    require-email: "Email is required"
+    email-format-invalid: "Email format XXXX@XXXX.com is required"
     password-too-short: "Password length needs be greater than 6"

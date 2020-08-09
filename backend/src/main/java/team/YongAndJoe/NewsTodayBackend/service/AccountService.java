@@ -2,7 +2,6 @@ package team.YongAndJoe.NewsTodayBackend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 import team.YongAndJoe.NewsTodayBackend.dao.UserDao;
 import team.YongAndJoe.NewsTodayBackend.entity.User;
 
@@ -16,8 +15,8 @@ public class AccountService {
         return userDao.getById(id);
     }
 
-    public boolean existByUsername(String username) {
-        return userDao.existByUsername(username);
+    public boolean existByEmail(String email) {
+        return userDao.existByEmail(email);
     }
 
     public User login(User user) {

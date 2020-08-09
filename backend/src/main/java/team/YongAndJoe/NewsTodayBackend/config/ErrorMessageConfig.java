@@ -13,8 +13,10 @@ public class ErrorMessageConfig {
     private String loginFailed;
     private String badRequest;
     private String requireUsername;
+    private String requireEmail;
     private String requirePassword;
     private String passwordTooShort;
+    private String emailFormatInvalid;
 
     public String getRequireAuthentication() {
         return requireAuthentication;
@@ -78,5 +80,21 @@ public class ErrorMessageConfig {
 
     public void setPasswordTooShort(String passwordTooShort) {
         this.passwordTooShort = passwordTooShort;
+    }
+
+    public String getRequireEmail() {
+        return requireEmail;
+    }
+
+    public void setRequireEmail(String requireEmail) {
+        this.requireEmail = requireEmail;
+    }
+
+    public String getEmailFormatInvalid() {
+        return emailFormatInvalid;
+    }
+
+    public void setEmailFormatInvalid(String emailFormatInvalid) {
+        this.emailFormatInvalid = emailFormatInvalid;
     }
 }
