@@ -5,12 +5,13 @@ USE newstoday;
 CREATE TABLE `account`(
     `id` int PRIMARY KEY AUTO_INCREMENT,
     `username` varchar(30) NOT NULL,
-    `password` varchar(30) NOT NULL
+    `email` varchar(30) NOT NULL,
+    `password` varchar(100) NOT NULL
 );
 
 -- dummy data for account
-INSERT INTO `account` (`id`, `username`, `password`)
-VALUES (1, 'admin', '123456');
+INSERT INTO `account` (`id`, `username`, `email`, `password`)
+VALUES (1, 'admin', 'admin@admin.com', '123456');
 
 -- create news table
 CREATE TABLE `news`(
