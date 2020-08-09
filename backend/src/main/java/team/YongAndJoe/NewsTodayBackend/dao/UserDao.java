@@ -18,11 +18,11 @@ public interface UserDao extends CrudRepository<User, Long> {
     public User getById(int id);
 
     /**
-     * Check if a user exist by username
-     * @param username username to check
-     * @return true if username exists, false otherwise
+     * Check if a user exist by email
+     * @param email email to check
+     * @return true if email exists, false otherwise
      */
-    public boolean existByUsername(String username);
+    public boolean existByEmail(String email);
 
     /**
      * Login using username and password
@@ -33,7 +33,7 @@ public interface UserDao extends CrudRepository<User, Long> {
 
     /**
      * Register a new user
-     * @param user username and password
+     * @param user email and password
      * @return true if user does not exist, false otherwise
      */
     public boolean register(User user);
