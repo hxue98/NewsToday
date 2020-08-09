@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import team.YongAndJoe.NewsTodayBackend.annotation.HashPassword;
 import team.YongAndJoe.NewsTodayBackend.annotation.ValidateUser;
@@ -18,6 +19,7 @@ import team.YongAndJoe.NewsTodayBackend.util.AjaxResponseBody;
 import team.YongAndJoe.NewsTodayBackend.util.JwtTokenUtil;
 import javax.servlet.http.HttpServletRequest;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/acc")
 public class AccountController {
@@ -31,7 +33,7 @@ public class AccountController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     @HashPassword
     @ValidateUser
     public ResponseEntity<?> login(@RequestBody User user, BindingResult result) {

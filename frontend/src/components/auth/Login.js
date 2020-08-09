@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { login } from '../../actions/AuthActions';
+import { connect } from 'react-redux'
 
 const Login = (props) => {
   const [user, setUser] = useState({
@@ -13,11 +15,12 @@ const Login = (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (email === '' || password === '') {
-      // TODO: alert msg
+      alert("Missing required fields!");
     } else {
-      //TODO: login user
+      login(user)(props.dispatch);
     }
   };
+
   return (
     <div className='form-container'>
       <h3>
@@ -56,4 +59,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default connect()(Login);
