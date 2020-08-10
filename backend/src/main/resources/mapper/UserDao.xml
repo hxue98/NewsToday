@@ -13,12 +13,14 @@
         SELECT *
         FROM account
         WHERE id = #{id}
+        LIMIT 1
     </select>
 
     <select id="login" resultType="team.YongAndJoe.NewsTodayBackend.entity.User" parameterType="team.YongAndJoe.NewsTodayBackend.entity.User">
         SELECT *
         FROM account
         WHERE email = #{email} AND password = #{password}
+        LIMIT 1
     </select>
 
     <select id="existByEmail" resultType="java.lang.Boolean" parameterType="team.YongAndJoe.NewsTodayBackend.entity.User">

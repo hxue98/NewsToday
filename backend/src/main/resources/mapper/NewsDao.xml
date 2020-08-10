@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="team.YongAndJoe.NewsTodayBackend.dao.NewsDao">
+
+    <resultMap id="BaseResultMap" type="team.YongAndJoe.NewsTodayBackend.entity.News">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="category" jdbcType="VARCHAR" property="category" />
+        <result column="summary" jdbcType="VARCHAR" property="summary" />
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <result column="date" jdbcType="DATE" property="date" />
+        <result column="source" jdbcType="VARCHAR" property="source" />
+        <result column="image_path" jdbcType="VARCHAR" property="imagePath" />
+    </resultMap>
+
+    <update id="increaseNumClick">
+        UPDATE news
+        SET num_clicks = num_clicks + 1
+        WHERE id = #{id}
+    </update>
+
+    <select id="getById" resultType="team.YongAndJoe.NewsTodayBackend.entity.News">
+        SELECT news.id, title, category, summary, url, date, source, image_path
+        FROM news
+        JOIN news_category
+        ON news.category_id = news_category.id
+        WHERE news.id = #{id}
+        LIMIT 1
+    </select>
+
+    <select id="getTopNewsPreviews" resultType="team.YongAndJoe.NewsTodayBackend.entity.NewsPreview">
+        SELECT news.id, title, category, date, source, image_path
+        FROM news
+        JOIN news_category
+        ON news.category_id = news_category.id
+        ORDER BY date
+        DESC LIMIT #{top};
+    </select>
+
+    <select id="getRandomNewsPreviews" resultType="team.YongAndJoe.NewsTodayBackend.entity.NewsPreview">
+        WITH randomNews AS (
+            SELECT news.id, title, category, date, source, image_path
+            FROM news
+            JOIN news_category
+            ON news.category_id = news_category.id
+            ORDER BY RAND()
+            LIMIT #{num}
+        )
+        SELECT *
+        FROM randomNews
+        ORDER BY date
+    </select>
+
+    <select id="getMostViewedNewsPreviews" resultType="team.YongAndJoe.NewsTodayBackend.entity.NewsPreview">
+        SELECT news.id, title, category, date, source, image_path, num_clicks
+        FROM news
+        JOIN news_category
+        ON news.category_id = news_category.id
+        WHERE date >= NOW() - INTERVAL 500 DAY
+        ORDER BY num_clicks DESC
+        LIMIT #{num}
+    </select>
+
+</mapper>
