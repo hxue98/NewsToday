@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="team.YongAndJoe.NewsTodayBackend.dao.PostDao">
+
+    <resultMap id="BaseResultMap" type="team.YongAndJoe.NewsTodayBackend.entity.Post">
+        <id column="id" property="id" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="userId" jdbcType="INTEGER" property="userId" />
+        <result column="text" jdbcType="VARCHAR" property="text" />
+    </resultMap>
+
+    <select id="getById" resultType="team.YongAndJoe.NewsTodayBackend.entity.Post">
+        SELECT post.id, username, account_id as userId, text
+        FROM post, account
+        WHERE post.id = #{id}
+        AND post.account_id = account.id
+    </select>
+
+    <select id="getImagePaths" resultType="java.lang.String">
+        SELECT image_path
+        FROM post_image
+        WHERE post_id = #{id}
+    </select>
+
+    <insert id="createPost" parameterType="team.YongAndJoe.NewsTodayBackend.entity.Post">
+        INSERT INTO post (account_id, text)
+        VALUES (#{userId}, #{text})
+    </insert>
+
+    <insert id="createPostImages" parameterType="team.YongAndJoe.NewsTodayBackend.entity.Post">
+        INSERT ALL
+            <foreach collection="images" item="element" index="index">
+                INTO post_image (text)
+                VALUES (#{element.text})
+            </foreach>
+        SELECT * FROM dual
+    </insert>
+
+</mapper>
