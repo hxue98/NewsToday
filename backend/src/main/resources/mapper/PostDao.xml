@@ -30,7 +30,7 @@
     <insert id="createPostImages" parameterType="team.YongAndJoe.NewsTodayBackend.entity.Post">
         INSERT ALL
             <foreach collection="images" item="element" index="index">
-                INTO post_image (text)
+                INTO post_image (image_path)
                 VALUES (#{element.text})
             </foreach>
         SELECT * FROM dual

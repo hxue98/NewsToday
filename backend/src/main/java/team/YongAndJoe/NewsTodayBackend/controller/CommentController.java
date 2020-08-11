@@ -4,37 +4,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestParam;
-import team.YongAndJoe.NewsTodayBackend.entity.Post;
-import team.YongAndJoe.NewsTodayBackend.service.PostService;
+import team.YongAndJoe.NewsTodayBackend.entity.Comment;
+import team.YongAndJoe.NewsTodayBackend.service.CommentService;
 import team.YongAndJoe.NewsTodayBackend.util.AjaxResponseBody;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/post")
-public class PostController {
+@RequestMapping("/comment")
+public class CommentController {
 
     @Autowired
-    PostService postService;
+    CommentService commentService;
 
-    @GetMapping("/id")
-    public ResponseEntity<?> getNewsById(@RequestParam("id") long id) {
+    @PostMapping("/createComment")
+    public ResponseEntity<?> createComment(@RequestBody Comment comment) {
         AjaxResponseBody body;
 
-        body = AjaxResponseBody.SUCCESS(null, postService.getById(id));
-
-        return ResponseEntity.ok(body);
-    }
-
-    @PostMapping("/createPost")
-    public ResponseEntity<?> createPost(@RequestBody Post post) {
-        AjaxResponseBody body;
-
-        postService.createPost(post);
+        commentService.createComment(comment);
 
         body = AjaxResponseBody.SUCCESS(null, null);
 

@@ -17,7 +17,7 @@ public class PostService {
         return post;
     }
 
-    public void CreatePost(Post post) {
+    public void createPost(Post post) {
         postDao.createPost(post);
         postDao.createPostImages(post);
     }

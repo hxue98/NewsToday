@@ -3,7 +3,7 @@
 <mapper namespace="team.YongAndJoe.NewsTodayBackend.dao.UserDao">
 
     <resultMap id="BaseResultMap" type="team.YongAndJoe.NewsTodayBackend.entity.User">
-        <result column="id" jdbcType="INTEGER" property="id" />
+        <id column="id" jdbcType="INTEGER" property="id" />
         <result column="username" jdbcType="VARCHAR" property="username" />
         <result column="email" jdbcType="VARCHAR" property="email" />
         <result column="password" jdbcType="VARCHAR" property="password" />
