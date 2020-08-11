@@ -2,6 +2,7 @@ package team.YongAndJoe.NewsTodayBackend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import team.YongAndJoe.NewsTodayBackend.dao.CommentDao;
 import team.YongAndJoe.NewsTodayBackend.dao.NewsDao;
 import team.YongAndJoe.NewsTodayBackend.entity.News;
 import team.YongAndJoe.NewsTodayBackend.entity.NewsPreview;
@@ -14,9 +15,14 @@ public class NewsService {
     @Autowired
     private NewsDao newsDao;
 
+    @Autowired
+    private CommentDao commentDao;
+
     public News getById(long id) {
         newsDao.increaseNumClick(id);
-        return newsDao.getById(id);
+        News news = newsDao.getById(id);
+        news.setComments(commentDao.getCommentsByNewsId(id));
+        return news;
     }
 
     public List<NewsPreview> getTopNewsPreviews(int top) {

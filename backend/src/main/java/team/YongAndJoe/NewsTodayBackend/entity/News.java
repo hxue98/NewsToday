@@ -1,6 +1,7 @@
 package team.YongAndJoe.NewsTodayBackend.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class News {
 
@@ -13,6 +14,7 @@ public class News {
     private Date date;
     private String source;
     private String imagePath;
+    private List<Comment> comments;
 
     public long getId() {
         return id;
@@ -76,5 +78,13 @@ public class News {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

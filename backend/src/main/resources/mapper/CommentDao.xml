@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="team.YongAndJoe.NewsTodayBackend.dao.CommentDao">
+
+    <resultMap id="BaseResultMap" type="team.YongAndJoe.NewsTodayBackend.entity.Comment">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="accountId" jdbcType="INTEGER" property="userId" />
+        <result column="newsId" jdbcType="INTEGER" property="newsId" />
+        <result column="commentId" jdbcType="INTEGER" property="parentCommentId" />
+        <result column="comment" jdbcType="VARCHAR" property="comment" />
+        <result column="date" jdbcType="DATE" property="date" />
+    </resultMap>
+
+    <select id="getCommentsByNewsId" resultType="team.YongAndJoe.NewsTodayBackend.entity.Comment">
+        SELECT *
+        FROM comment
+        WHERE news_id = #{newsId}
+    </select>
+
+    <select id="getImagePaths" resultType="java.lang.String">
+        SELECT image_path
+        FROM comment_image
+        WHERE comment_id = #{id}
+    </select>
+
+    <insert id="createComment" parameterType="team.YongAndJoe.NewsTodayBackend.entity.Comment">
+        INSERT INTO comment (account_id, news_id, comment_id, comment, date)
+        VALUES (#{userId}, #{newsId}, #{parentCommentId}, #{comment}, #{date})
+    </insert>
+
+    <insert id="createCommentImages">
+        INSERT ALL
+        <foreach collection="images" item="element" index="index">
+            INTO comment_image (image_path)
+            VALUES (#{element.text})
+        </foreach>
+        SELECT * FROM dual
+    </insert>
+
+</mapper>

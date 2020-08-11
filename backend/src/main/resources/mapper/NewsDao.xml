@@ -3,7 +3,7 @@
 <mapper namespace="team.YongAndJoe.NewsTodayBackend.dao.NewsDao">
 
     <resultMap id="BaseResultMap" type="team.YongAndJoe.NewsTodayBackend.entity.News">
-        <result column="id" jdbcType="INTEGER" property="id" />
+        <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
         <result column="category" jdbcType="VARCHAR" property="category" />
         <result column="summary" jdbcType="VARCHAR" property="summary" />
