@@ -1,6 +1,9 @@
 package team.YongAndJoe.NewsTodayBackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
+import java.util.List;
 
 public class NewsPreview {
 
@@ -8,9 +11,10 @@ public class NewsPreview {
 
     private String title;
     private String category;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date date;
     private String source;
-    private String imagePath;
+    private List<String> imageUrl;
 
     public long getId() {
         return id;
@@ -52,11 +56,11 @@ public class NewsPreview {
         this.source = source;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public List<String> getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImageUrl(List<String> imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

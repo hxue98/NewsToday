@@ -13,12 +13,12 @@ public class PostService {
 
     public Post getById(long id) {
         Post post = postDao.getById(id);
-        post.setImages(postDao.getImagePaths(id));
+        post.setImageUrls(postDao.getImageUrls(id));
         return post;
     }
 
     public void createPost(Post post) {
         postDao.createPost(post);
-        postDao.createPostImages(post);
+        postDao.createPostImageUrls(post);
     }
 }

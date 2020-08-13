@@ -49,6 +49,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         // Redirect to login page for invalid token.
         if (!jwtTokenUtil.validJwt(token)) {
             httpServletResponse.setStatus(401);
+            httpServletResponse.setHeader("Access-Control-Allow-Origin", httpServletRequest.getHeader("Origin"));
+            httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");
+            httpServletResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+            httpServletResponse.setHeader("Access-Control-Max-Age", "3600");
+            httpServletResponse.setHeader("Access-Control-Allow-Headers", "Content-Type");
             AjaxResponseBody body = AjaxResponseBody.FAIL(errorMessageConfig.getRequireAuthentication(), null);
             httpServletResponse.getWriter().write(JSON.toJSONString(body));
             return;

@@ -28,19 +28,19 @@ public class NewsController {
     }
 
     @GetMapping("/topPreviews")
-    public ResponseEntity<?> getTopNewsPreviews(@RequestParam("top") int top) {
+    public ResponseEntity<?> getTopNewsPreviews(@RequestParam("categoryId") long categoryId, @RequestParam("num") int num) {
         AjaxResponseBody body;
 
-        body = AjaxResponseBody.SUCCESS(null, newsService.getTopNewsPreviews(top));
+        body = AjaxResponseBody.SUCCESS(null, newsService.getTopNewsPreviews(categoryId, num));
 
         return ResponseEntity.ok(body);
     }
 
     @GetMapping("/randomPreviews")
-    public ResponseEntity<?> getRandomNewsPreviews(@RequestParam("num") int num) {
+    public ResponseEntity<?> getRandomNewsPreviews(@RequestParam("categoryId") long categoryId, @RequestParam("num") int num) {
         AjaxResponseBody body;
 
-        body = AjaxResponseBody.SUCCESS(null, newsService.getRandomNewsPreviews(num));
+        body = AjaxResponseBody.SUCCESS(null, newsService.getRandomNewsPreviews(categoryId, num));
 
         return ResponseEntity.ok(body);
     }
