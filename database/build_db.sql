@@ -65,6 +65,7 @@ CREATE TABLE `news`(
     `source` varchar(30) NOT NULL,
     `image_path` varchar(255) NOT NULL,
     `num_clicks` int DEFAULT 0,
+    `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (`category_id`) REFERENCES `news_category`(`id`)
 );
 
