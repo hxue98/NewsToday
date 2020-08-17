@@ -5,35 +5,35 @@
     <resultMap id="BaseResultMap" type="team.YongAndJoe.NewsTodayBackend.entity.Post">
         <id column="id" property="id" />
         <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="date" jdbcType="DATE" property="date" />
         <result column="userId" jdbcType="INTEGER" property="userId" />
         <result column="text" jdbcType="VARCHAR" property="text" />
     </resultMap>
 
     <select id="getById" resultType="team.YongAndJoe.NewsTodayBackend.entity.Post">
-        SELECT post.id, username, account_id as userId, text
+        SELECT post.id, username, account_id as userId, date, text
         FROM post, account
         WHERE post.id = #{id}
         AND post.account_id = account.id
     </select>
 
-    <select id="getImagePaths" resultType="java.lang.String">
-        SELECT image_path
+    <select id="getImageUrls" resultType="java.lang.String">
+        SELECT image_url
         FROM post_image
         WHERE post_id = #{id}
     </select>
 
-    <insert id="createPost" parameterType="team.YongAndJoe.NewsTodayBackend.entity.Post">
-        INSERT INTO post (account_id, text)
-        VALUES (#{userId}, #{text})
+    <insert id="createPost" parameterType="team.YongAndJoe.NewsTodayBackend.entity.Post" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO post (account_id, date, text)
+        VALUES (#{userId}, #{date}, #{text})
     </insert>
 
-    <insert id="createPostImages" parameterType="team.YongAndJoe.NewsTodayBackend.entity.Post">
-        INSERT ALL
-            <foreach collection="images" item="element" index="index">
-                INTO post_image (image_path)
-                VALUES (#{element.text})
+    <insert id="createPostImageUrls" parameterType="team.YongAndJoe.NewsTodayBackend.entity.Post">
+        INSERT INTO post_image (post_id, image_url)
+        VALUES
+            <foreach collection="imageUrls" item="url" index="index" separator =",">
+                ( #{id}, #{url} )
             </foreach>
-        SELECT * FROM dual
     </insert>
 
 </mapper>

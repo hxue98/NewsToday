@@ -16,13 +16,13 @@ public class CommentService {
     public List<Comment> getCommentsByNewsId(long id) {
         List<Comment> comments = commentDao.getCommentsByNewsId(id);
         for (Comment comment : comments) {
-            comment.setImages(commentDao.getImagePaths(comment.getId()));
+            comment.setImageUrls(commentDao.getImageUrls(comment.getId()));
         }
         return comments;
     }
 
     public void createComment(Comment comment) {
         commentDao.createComment(comment);
-        commentDao.createCommentImages(comment);
+        commentDao.createCommentImageUrls(comment);
     }
 }

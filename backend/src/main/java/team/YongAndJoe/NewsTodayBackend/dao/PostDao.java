@@ -19,11 +19,11 @@ public interface PostDao {
     Post getById(long id);
 
     /**
-     * Get all image paths by id
+     * Get all image urls by id
      * @param id post's id
-     * @return list of post images
+     * @return list of post image urls
      */
-    List<String> getImagePaths(long id);
+    List<String> getImageUrls(long id);
 
     /**
      * Stores a post
@@ -32,9 +32,9 @@ public interface PostDao {
     void createPost(Post post);
 
     /**
-     * Stores images for a post
-     * @param post post whose images will be stored
+     * Stores image urls for a post
+     * @param post post whose image urls will be stored
      */
-    void createPostImages(Post post);
+    void createPostImageUrls(Post post);
 
 }

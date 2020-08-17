@@ -4,13 +4,7 @@ import {
   AUTH_FAIL,
 } from './types';
 import axios from 'axios';
-import configuration from '../config'
-
-const config = {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-};
+import configuration from '../config';
 
 // Register User
 export const register = (formData) => async (dispatch) => {
@@ -18,8 +12,7 @@ export const register = (formData) => async (dispatch) => {
     type: ATTEMPT_AUTH
   });
   try {
-    const res = await axios.post(configuration.api + '/acc/register', formData, config);
-    console.log('res', res);
+    const res = await axios.post(configuration.api + '/acc/register', formData, configuration.axiosConfig);
     dispatch({
       type: AUTH_SUCCESS,
       payload: res.data,
@@ -34,12 +27,11 @@ export const register = (formData) => async (dispatch) => {
 
 // Login
 export const login = (formData) => async (dispatch) => {
-  console.log(formData);
   dispatch({
     type: ATTEMPT_AUTH
   });
   try {
-    const res = await axios.post(configuration.api + '/acc/login', formData, config);
+    const res = await axios.post(configuration.api + '/acc/login', formData, configuration.axiosConfig);
       dispatch({
         type: res.data.success ? AUTH_SUCCESS : AUTH_FAIL,
         payload: res.data,

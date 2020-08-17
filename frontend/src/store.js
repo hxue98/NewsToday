@@ -12,5 +12,9 @@ const store = createStore(
   initialState,
   composeWithDevTools(applyMiddleware(...middleware))
 );
-console.log('store', { store });
+
+export const getJwtToken = () => {
+  return store.getState().auth.token;
+}
+
 export default store;

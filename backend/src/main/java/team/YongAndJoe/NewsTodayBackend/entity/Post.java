@@ -1,5 +1,8 @@
 package team.YongAndJoe.NewsTodayBackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
 import java.util.List;
 
 public class Post {
@@ -8,8 +11,10 @@ public class Post {
 
     private long userId;
     private String username;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date date;
     private String text;
-    private List<String> images;
+    private List<String> imageUrls;
 
     public long getId() {
         return id;
@@ -35,6 +40,14 @@ public class Post {
         this.username = username;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public String getText() {
         return text;
     }
@@ -43,11 +56,11 @@ public class Post {
         this.text = text;
     }
 
-    public List<String> getImages() {
-        return images;
+    public List<String> getImageUrls() {
+        return imageUrls;
     }
 
-    public void setImages(List<String> images) {
-        this.images = images;
+    public void setImageUrls(List<String> imagesUrl) {
+        this.imageUrls = imagesUrl;
     }
 }

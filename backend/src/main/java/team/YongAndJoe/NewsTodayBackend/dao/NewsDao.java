@@ -27,17 +27,19 @@ public interface NewsDao extends CrudRepository<News, Long> {
 
     /**
      * Get top news
+     * @param id category id
      * @param top number of newest news
      * @return list of newest news
      */
-    List<NewsPreview> getTopNewsPreviews(int top);
+    List<NewsPreview> getTopNewsPreviews(long id, int top);
 
     /**
      * Get random news
+     * @param id category id
      * @param num number of random news
      * @return list of news
      */
-    List<NewsPreview> getRandomNewsPreviews(int num);
+    List<NewsPreview> getRandomNewsPreviews(long id, int num);
 
     /**
      * Get most viewed news in past 24 hr
@@ -45,4 +47,11 @@ public interface NewsDao extends CrudRepository<News, Long> {
      * @return list of news
      */
     List<NewsPreview> getMostViewedNewsPreviews(int num);
+
+    /**
+     * Get all image urls by id
+     * @param id news's id
+     * @return list of news image urls
+     */
+    List<String> getImageUrls(long id);
 }

@@ -22,7 +22,7 @@ public interface CommentDao {
      * @param id comment's id
      * @return list of comment images
      */
-    List<String> getImagePaths(long id);
+    List<String> getImageUrls(long id);
 
     /**
      * Stores a comment
@@ -31,8 +31,8 @@ public interface CommentDao {
     void createComment(Comment comment);
 
     /**
-     * Stores images for a comment
-     * @param comment comment images to create
+     * Stores image urls for a comment
+     * @param comment comment image urls to create
      */
-    void createCommentImages(Comment comment);
+    void createCommentImageUrls(Comment comment);
 }

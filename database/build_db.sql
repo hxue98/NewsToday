@@ -33,24 +33,25 @@ VALUES (1, 'Tech'),
 CREATE TABLE `post`(
     `id` int PRIMARY KEY AUTO_INCREMENT,
     `account_id` int NOT NULL,
+    `date` datetime NOT NULL,
     `text` VARCHAR(2000) NOT NULL,
     FOREIGN KEY (`account_id`) REFERENCES `account`(`id`)
 );
 
 -- dummy data for post
-INSERT INTO `post` (`id`, `account_id`, `text`)
-VALUES (1, 1, 'text post');
+INSERT INTO `post` (`id`, `account_id`, `date`, `text`)
+VALUES (1, 1, '2020-01-01 01:01:01', 'text post');
 
 -- create post_image table
 CREATE TABLE `post_image`(
     `id` int PRIMARY KEY AUTO_INCREMENT,
     `post_id` int NOT NULL,
-    `image_path` varchar(255) NOT NULL,
+    `image_url` varchar(255) NOT NULL,
     FOREIGN KEY (`post_id`) REFERENCES `post`(`id`)
 );
 
 -- dummy data for post_image
-INSERT INTO `post_image` (`id`, `post_id`, `image_path`)
+INSERT INTO `post_image` (`id`, `post_id`, `image_url`)
 VALUES (1, 1, '/sample/image 1.jpg'),
        (2, 1, '/sample/image 2.jpg');
 
@@ -63,19 +64,31 @@ CREATE TABLE `news`(
     `url` varchar(255) NOT NULL,
     `date` datetime NOT NULL,
     `source` varchar(30) NOT NULL,
-    `image_path` varchar(255) NOT NULL,
     `num_clicks` int DEFAULT 0,
     `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (`category_id`) REFERENCES `news_category`(`id`)
 );
 
 -- dummy data for news
-INSERT INTO `news` (`id`, `title`, `category_id`, `summary`, `url`, `date`, `source`, `image_path`)
-VALUES (1, 'test title 1', 1, 'test summary 1', 'https://www.google.com/', '2020-01-01 01:01:01', 'CNN', '/sample/image 1.jpg'),
-       (2, 'test title 2', 2, 'test summary 2', 'https://www.amazon.com/', '2020-01-01 02:02:02', 'FOX', '/sample/image 2.jpg'),
-       (3, 'test title 3', 3, 'test summary 3', 'https://www.facebook.com/', '2020-01-01 03:03:03', 'NEW YORK TIME', '/sample/image 3.jpg'),
-       (4, 'test title 4', 4, 'test summary 4', 'https://www.bing.com/', '2020-01-01 04:04:04', 'ABC', '/sample/image 4.jpg'),
-       (5, 'test title 5', 5, 'test summary 5', 'https://www.youtube.com/', '2020-01-01 05:05:05', 'BBC', '/sample/image 5.jpg');
+INSERT INTO `news` (`id`, `title`, `category_id`, `summary`, `url`, `date`, `source`)
+VALUES (1, 'test title 1', 1, 'test summary 1', 'https://www.google.com/', '2020-01-01 01:01:01', 'CNN'),
+       (2, 'test title 2', 2, 'test summary 2', 'https://www.amazon.com/', '2020-01-01 02:02:02', 'FOX'),
+       (3, 'test title 3', 3, 'test summary 3', 'https://www.facebook.com/', '2020-01-01 03:03:03', 'NEW YORK TIME'),
+       (4, 'test title 4', 4, 'test summary 4', 'https://www.bing.com/', '2020-01-01 04:04:04', 'ABC'),
+       (5, 'test title 5', 5, 'test summary 5', 'https://www.youtube.com/', '2020-01-01 05:05:05', 'BBC');
+
+-- create news_image table
+CREATE TABLE `news_image`(
+    `id` int PRIMARY KEY AUTO_INCREMENT,
+    `news_id` int NOT NULL,
+    `image_url` varchar(255) NOT NULL,
+    FOREIGN KEY (`news_id`) REFERENCES `news`(`id`)
+);
+
+-- dummy data for news_image
+INSERT INTO `news_image` (`id`, `news_id`, `image_url`)
+VALUES (1, 1, '/sample/image 1.jpg'),
+       (2, 1, '/sample/image 2.jpg');
 
 -- create comment table
 CREATE TABLE `comment`(
@@ -94,16 +107,19 @@ CREATE TABLE `comment`(
 INSERT INTO `comment` (`id`, `account_id`, `news_id`, `comment`, `date`)
 VALUES(1, 1, 1, 'test comment', '2020-01-01 01:01:01');
 
+INSERT INTO `comment` (`id`, `account_id`, `news_id`, `comment_id`, `comment`, `date`)
+VALUES(2, 1, 1, 1, 'test nested comment', '2020-01-01 02:02:02');
+
 -- create comment_image table
 CREATE TABLE `comment_image`(
     `id` int PRIMARY KEY AUTO_INCREMENT,
     `comment_id` int NOT NULL,
-    `image_path` varchar(255) NOT NULL,
+    `image_url` varchar(255) NOT NULL,
     FOREIGN KEY (`comment_id`) REFERENCES `comment`(`id`)
 );
 
 -- dummy data for comment_image
-INSERT INTO `comment_image` (`id`, `comment_id`, `image_path`)
+INSERT INTO `comment_image` (`id`, `comment_id`, `image_url`)
 VALUES(1, 1, '/sample/image.jpg');
 
 -- create rating table
